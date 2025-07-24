@@ -62,16 +62,18 @@ return {
     end
 
     -- Call setup on each LSP server
-    require('mason-lspconfig').setup_handlers({
-      function(server_name)
-        -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
-        if server_name ~= 'jdtls' then
-          lspconfig[server_name].setup({
-            on_attach = lsp_attach,
-            capabilities = lsp_capabilities,
-          })
+    require('mason-lspconfig').setup({
+      handlers = {
+        function(server_name)
+          -- Don't call setup for JDTLS Java LSP because it will be setup from a separate config
+          if server_name ~= 'jdtls' then
+            lspconfig[server_name].setup({
+              on_attach = lsp_attach,
+              capabilities = lsp_capabilities,
+            })
+          end
         end
-      end
+      }
     })
 
     -- Lua LSP settings
