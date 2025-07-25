@@ -18,8 +18,9 @@ whichkey.add({ "<leader>x", group = "[X]tra" })
 whichkey.add({ "<leader>d", group = "[D]ebug" })
 whichkey.add({ "<leader>b", group = "[B]reakpoints" })
 whichkey.add({ "<leader>r", group = "[R]ename" })
+whichkey.add({ "<leader>o", group = "[O]utline" })
+-- whichkey.add({ "<leader>tr", group = "[T]ree symbols" })
 whichkey.add({ "g", group = "Special" })
-
 
 -- General keymaps
 keymap.set("n", "<leader>wq", ":wq<CR>", { desc = "[Q]uit (save)" }) -- save and quit
@@ -117,7 +118,7 @@ keymap.set("n", "<leader>gp", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc 
 keymap.set("n", "<leader>gn", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "[N]ext diagnostic" })
 keymap.set("n", "<leader>tr", "<cmd>lua vim.lsp.buf.document_symbol()<CR>", { desc = "[T]ree symbols" })
 keymap.set("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>", { desc = "[R]ename symbol" })
-keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "LSP: completion" })
+-- keymap.set("i", "<C-Space>", "<cmd>lua vim.lsp.buf.completion()<CR>", { desc = "LSP: completion" })
 
 -- Filetype-specific keymaps (these can be done in the ftplugin directory instead if you prefer)
 keymap.set("n", "<leader>go", function()
@@ -125,19 +126,16 @@ keymap.set("n", "<leader>go", function()
     require("jdtls").organize_imports()
   end
 end, { desc = "[O]rganize imports (Java)" })
-
 keymap.set("n", "<leader>gu", function()
   if vim.bo.filetype == "java" then
     require("jdtls").update_projects_config()
   end
 end, { desc = "[U]pdate project (Java)" })
-
 keymap.set("n", "<leader>tc", function()
   if vim.bo.filetype == "java" then
     require("jdtls").test_class()
   end
 end, { desc = "[C]lass test (Java)" })
-
 keymap.set("n", "<leader>tm", function()
   if vim.bo.filetype == "java" then
     require("jdtls").test_nearest_method()
@@ -163,3 +161,31 @@ keymap.set("n", "<leader>d?", function() local widgets = require("dap.ui.widgets
 keymap.set("n", "<leader>df", "<cmd>Telescope dap frames<cr>", { desc = "[F]rames" })
 keymap.set("n", "<leader>dh", "<cmd>Telescope dap commands<cr>", { desc = "[H]elp" })
 keymap.set("n", "<leader>de", function() require("telescope.builtin").diagnostics({default_text=":E:"}) end, { desc = "[E]rrors" })
+
+--------------
+-- CONFIG JES
+--------------
+
+-- Outline
+keymap.set("n", "<leader>oo", "<cmd>OutlineOpen<CR>", { desc = "[O]pen" })
+keymap.set("n", "<leader>oc", "<cmd>OutlineClose<CR>", { desc = "[C]lose" })
+keymap.set("n", "<leader>of", "<cmd>OutlineFocus<CR>", { desc = "[F]ocus" })
+keymap.set("n", "<leader>or", "<cmd>OutlineRefresh<CR>", { desc = "[R]efresh" })
+
+-- Motion
+-- keymap.set("n", "j", "jzz", { desc = "[j] line downward and redraw" }) -- line downward and redraw
+-- keymap.set("n", "k", "kzz", { desc = "[k] line upward and redraw" }) -- line upward and redraw
+-- keymap.set("n", ")", ")zz", { desc = "[)] sentences forward and redraw" }) -- sentences forward and redraw
+-- keymap.set("n", "(", "(zz", { desc = "[(] sentences backward and redraw" }) -- sentences backward and redraw
+-- keymap.set("n", "}", "}zz", { desc = "[}] paragraphs forward and redraw" }) -- paragraphs forward and redraw
+-- keymap.set("n", "{", "{zz", { desc = "[{] paragraphs backward and redraw" }) -- paragraphs backward and redraw
+keymap.set("n", "n", "nzz", { desc = "[N]ext and redraw" }) -- next and redraw
+keymap.set("n", "b", "bzz", { desc = "[B]ack and redraw" }) -- back and redraw
+keymap.set("n", "<C-d>", "<C-d>zz", { desc = "[D] scroll downward and redraw" }) -- scroll downward and redraw
+keymap.set("n", "<C-u>", "<C-u>zz", { desc = "[U] scroll upward and redraw" }) -- scroll upward and redraw
+keymap.set("n", "<C-f>", "<C-f>zz", { desc = "[F] scroll forward and redraw" }) -- scroll upward and redraw
+keymap.set("n", "<C-b>", "<C-b>zz", { desc = "[B] scroll backward and redraw" }) -- scroll downward and redraw
+
+-- Commentary
+keymap.set("v", "<C-/>", ":Commentary<CR>", { desc = "[/] comment visual block" }) -- comment visual block
+keymap.set("n", "<C-/>", ":Commentary<CR>j", { desc = "[/] comment and go to the next line" }) -- comment and go to the next line
