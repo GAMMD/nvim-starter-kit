@@ -11,7 +11,7 @@ whichkey.add({ "<leader>s", group = "[S]plit Windows" })
 whichkey.add({ "<leader>t", group = "[T]abs" })
 whichkey.add({ "<leader>e", group = "[E]xplorer" })
 whichkey.add({ "<leader>f", group = "[F]ind (Telescope)" })
-whichkey.add({ "<leader>g", group = "[G]it/LSP" })
+whichkey.add({ "<leader>g", group = "[G]it/LSP", mode = { "n", "v" } })
 whichkey.add({ "<leader>h", group = "[H]arpoon" })
 whichkey.add({ "<leader>c", group = "[C]hanges/Diff" })
 whichkey.add({ "<leader>x", group = "[X]tra" })
@@ -82,6 +82,12 @@ keymap.set("n", "<leader>ft", function() -- grep file contents in current nvim-t
   if not success or not node then return end
   require("telescope.builtin").live_grep({ search_dirs = { node.absolute_path } })
 end, { desc = "[T]ree node search" })
+
+-- Telescope Git
+keymap.set("n", "<leader>gc", require("telescope.builtin").git_bcommits, { desc = "[C]ommit history (current file)" })
+keymap.set("v", "<leader>gc", require("telescope.builtin").git_bcommits_range, { desc = "[C]ommit history (selected lines)" })
+keymap.set("n", "<leader>gC", require("telescope.builtin").git_commits, { desc = "[C]ommit history (repository)" })
+keymap.set("n", "<leader>gS", require("telescope.builtin").git_status, { desc = "[S]tatus" })
 
 -- Git-blame
 keymap.set("n", "<leader>gb", ":GitBlameToggle<CR>", { desc = "[B]lame toggle" }) -- toggle git blame
